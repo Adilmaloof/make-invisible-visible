@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #05060a;
+  --cy: #22f2ff;
+  --vi: #a855f7;
+  --em: #ff7a1a;
+  --fe: #ff3d81;
+  --bio: #3dffb5;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--ink);
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { overflow-x: hidden; }
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0c14; }
+::-webkit-scrollbar-thumb { background: #22f2ff33; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #22f2ff66; }
+
+/* ── Selection ──────────────────────────────────── */
+::selection { background: #22f2ff22; color: #22f2ff; }
+
+/* ── Focus ring ─────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--cy); outline-offset: 3px; }
+
+/* ── Font helpers ───────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+
+/* ── Noise overlay ──────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Glow helpers ───────────────────────────────── */
+.glow-cy { text-shadow: 0 0 24px #22f2ff88; }
+.glow-vi { text-shadow: 0 0 24px #a855f788; }
+.glow-em { text-shadow: 0 0 24px #ff7a1a88; }
+.glow-bio { text-shadow: 0 0 24px #3dffb588; }
+
+/* ── Magnetic button base ───────────────────────── */
+.mag-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  cursor: none;
+  border: 1px solid currentColor;
+  transition: background 0.25s, box-shadow 0.25s;
+  will-change: transform;
+  user-select: none;
+}
+.mag-btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), currentColor 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mag-btn:hover::before { opacity: 0.08; }
+
+/* ── Chapter badge ──────────────────────────────── */
+.chapter-badge {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Shimmer skeleton ───────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #11141f 25%, #1a1e2e 50%, #11141f 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Clamp utility ──────────────────────────────── */
+.clamp-title { font-size: clamp(2.2rem, 6vw, 5rem); }
+.clamp-hero  { font-size: clamp(2.8rem, 8vw, 7.5rem); }
+.clamp-kicker{ font-size: clamp(0.7rem, 1.5vw, 0.85rem); }
+
+/* ── Three.js canvas ────────────────────────────── */
+canvas { display: block; }
+
+/* ── Recharts / D3 overrides ────────────────────── */
+.recharts-text { fill: #94a3b8 !important; font-family: var(--font-sans) !important; font-size: 11px !important; }
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line { stroke: #ffffff0d !important; }
+.recharts-tooltip-wrapper { outline: none !important; }
